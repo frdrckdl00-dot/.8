@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ara's Birthday Surprise</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #add8e6, #bde0f0, #a4d4ea);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+@keyframes gradientShift {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+h1,h2 {
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+  text-align: center;
+  color: #ffffff;
+  text-shadow:
+    -2px -2px 0 #053c5e,
+    2px -2px 0 #053c5e,
+    -2px 2px 0 #053c5e,
+    2px 2px 0 #053c5e,
+    0 0 10px rgba(173,216,230,0.9),
+    0 0 20px rgba(173,216,230,0.7);
+}
+h1 {font-size:5rem;}
+h2 {font-size:3.5rem;margin:5px 0 30px;}
+
+#startBtn {
+  padding: 16px 40px;
+  background-color: #7ec8e3;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+#startBtn:hover { transform: scale(1.05); background-color: #5fb7db; }
+
+.grid {
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 40px;
+  width: 85%;
+  height: 65%;
+  margin-top: 20px;
+}
+
+.square {
+  background: rgba(255,255,255,0.95);
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  padding: 15px;
+  font-size: 1.4rem;
+}
+.square:hover { transform: scale(1.05); }
+
+.square-icon {font-size: 3.5rem;}
+.square-name {font-size: 1.4rem;margin-top:10px;color:#053c5e;}
+
+.content {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+  width: 95%;
+  color:#053c5e;
+  z-index: 2;
+  position: relative;
+}
+
+.backBtn {
+  display:inline-block;
+  margin:18px 8px 0 8px;
+  padding:10px 25px;
+  background:#7ec8e3;
+  color:#fff;
+  font-weight:bold;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+.backBtn:hover { background:#5fb7db; transform:scale(1.04); }
+
+.verse-box {
+  background: linear-gradient(135deg,#d2b48c,#f5deb3);
+  border-radius: 40px;
+  padding: 30px;
+  margin: 20px auto;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color:#4b2e12;
+  max-width: 90%;
+  text-align:center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.cake-container {
+  position: relative;
+  width: 300px;
+  height: 250px;
+  margin: 40px auto;
+}
+.plate, .layer, .icing { position: absolute; left: 50%; transform: translateX(-50%); opacity: 0; }
+.plate { bottom: 0; width: 260px; height: 20px; background: #ddd; border-radius: 10px; animation: show 0.5s forwards 0.2s; }
+.layer1 { bottom: 20px; width: 200px; height: 50px; background: #d2691e; border-radius: 10px; animation: show 0.5s forwards 0.7s; }
+.layer2 { bottom: 70px; width: 160px; height: 40px; background: #cd853f; border-radius: 10px; animation: show 0.5s forwards 1.2s; }
+.icing { bottom: 110px; width: 170px; height: 20px; background: pink; border-radius: 15px; animation: show 0.5s forwards 1.7s; }
+.candles { position: absolute; bottom: 130px; left: 50%; width: 170px; height: 30px; transform: translateX(-50%); display:flex; justify-content:space-between; opacity:0; animation: show 0.5s forwards 2.2s; }
+.candle { width: 5px; height: 25px; background: #2e8b57; position: relative; border-radius: 2px; }
+.candle::after { content: ""; position:absolute; top:-6px; left:50%; transform:translateX(-50%); width:6px; height:6px; background:gold; border-radius:50%; animation:flicker 0.5s infinite alternate; }
+@keyframes show { from {opacity: 0; transform: translate(-50%,20px);} to {opacity:1; transform:translate(-50%,0);} }
+@keyframes flicker { from {transform: translateX(-50%) scaleY(1);} to {transform: translateX(-50%) scaleY(1.2);} }
+
+.gift-animation {
+  font-size:3rem;
+  animation: floatHearts 2s infinite alternate;
+}
+@keyframes floatHearts {
+  from {transform:translateY(0);}
+  to {transform:translateY(-15px);}
+}
+
+.picture-grid, .message-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin:20px auto;
+  width:95%;
+}
+.picture-grid img, .message-grid img {
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  cursor:pointer;
+  transition: transform 0.2s ease;
+}
+.picture-grid img:active, .message-grid img:active {
+  transform:scale(0.95); /* shrink on click */
+}
+
+.detail-view img {
+  max-width:90%;
+  border-radius:16px;
+  margin:20px auto;
+  display:block;
+}
+
+/* Falling bears animation */
+.bear {
+  position: absolute;
+  top: -50px;
+  font-size: 24px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+<body>
+  <!-- Background music -->
+  <audio id="bgMusic" src="Youllbesafehere.mp3" autoplay loop></audio>
+
+  <h1 id="hiAra">Hi Ara</h1>
+  <h2 id="happyBday">Happy Birthday!</h2>
+  <button id="startBtn">Start</button>
+
+  <div class="grid" id="grid">
+    <div class="square" data-target="gifts">
+      <div class="square-icon">🎁</div>
+      <div class="square-name">Gifts</div>
+    </div>
+    <div class="square" data-target="messages">
+      <div class="square-icon">💌</div>
+      <div class="square-name">Messages</div>
+    </div>
+    <div class="square" data-target="pictures">
+      <div class="square-icon">📸</div>
+      <div class="square-name">Pictures</div>
+    </div>
+    <div class="square" data-target="lordsword">
+      <div class="square-icon">📖</div>
+      <div class="square-name">Lord's Word</div>
+    </div>
+  </div>
+
+  <div class="content" id="gifts"></div>
+  <div class="content" id="messages"></div>
+  <div class="content" id="pictures"></div>
+  <div class="content" id="lordsword"></div>
+
+<script>
+const startBtn=document.getElementById('startBtn');
+const grid=document.getElementById('grid');
+const squares=document.querySelectorAll('.square');
+const contents=document.querySelectorAll('.content');
+const hiAra=document.getElementById('hiAra');
+const happyBday=document.getElementById('happyBday');
+
+startBtn.addEventListener('click',()=>{
+  startBtn.style.display='none';
+  grid.style.display='grid';
+});
+
+// Falling bears creation
+for(let i=0;i<100;i++){
+  const bear=document.createElement('div');
+  bear.className='bear';
+  bear.textContent='🧸';
+  bear.style.left=Math.random()*100+'vw';
+  bear.style.animationDuration=(5+Math.random()*10)+'s';
+  bear.style.fontSize=(12+Math.random()*24)+'px';
+  document.body.appendChild(bear);
+}
+
+function showMainGrid(){
+  contents.forEach(c=>c.style.display='none');
+  grid.style.display='grid';
+  hiAra.style.display='block';
+  happyBday.style.display='block';
+}
+
+squares.forEach(square=>{
+  square.addEventListener('click',()=>{
+    const targetId=square.dataset.target;
+    grid.style.display='none';
+    hiAra.style.display='none';
+    happyBday.style.display='none';
+    contents.forEach(c=>c.style.display='none');
+    const section=document.getElementById(targetId);
+    section.innerHTML='';
+
+    if(targetId==='gifts'){
+      const heading=document.createElement('h2');
+      heading.textContent='Choose a Surprise';
+      section.appendChild(heading);
+
+      const cakeBox=document.createElement('div');
+      cakeBox.className='square';
+      cakeBox.innerHTML='<div class="square-icon">🎂</div><div class="square-name">Birthday Cake</div>';
+      cakeBox.addEventListener('click',()=>{
+        section.innerHTML='';
+        const h=document.createElement('h2');h.textContent='Birthday Cake';section.appendChild(h);
+        section.insertAdjacentHTML('beforeend',`
+          <div class="cake-container">
+            <div class="plate"></div>
+            <div class="layer layer1"></div>
+            <div class="layer layer2"></div>
+            <div class="icing"></div>
+            <div class="candles">${'<div class="candle"></div>'.repeat(18)}</div>
+          </div>`);
+        const back=document.createElement('button');back.className='backBtn';back.textContent='Back';back.addEventListener('click',()=>squares[0].click());section.appendChild(back);
+      });
+      section.appendChild(cakeBox);
+
+      const giftBox=document.createElement('div');
+      giftBox.className='square';
+      giftBox.innerHTML='<div class="square-icon">💐</div><div class="square-name">Bouquet & Bears</div>';
+      giftBox.addEventListener('click',()=>{
+        section.innerHTML='';
+        const h=document.createElement('h2');h.textContent='Bouquet & Bears';section.appendChild(h);
+        const anim=document.createElement('div');anim.className='gift-animation';anim.textContent='💐 🧸💖🧸💖';section.appendChild(anim);
+        const back=document.createElement('button');back.className='backBtn';back.textContent='Back';back.addEventListener('click',()=>squares[0].click());section.appendChild(back);
+      });
+      section.appendChild(giftBox);
+
+      const backMain=document.createElement('button');backMain.className='backBtn';backMain.textContent='Back';backMain.addEventListener('click',showMainGrid);section.appendChild(backMain);
+    }
+
+    if(targetId==='messages'){
+      const heading=document.createElement('h2');heading.textContent='Messages';section.appendChild(heading);
+      const gridMsg=document.createElement('div');gridMsg.className='message-grid';
+      for(let i=0;i<10;i++){
+        const img=document.createElement('img');
+        img.src=`messages/msg${i+1}.jpg`; 
+        img.alt=`Message ${i+1}`;
+        img.addEventListener('click',()=>{
+          section.innerHTML='';
+          const h2=document.createElement('h2');h2.textContent=`Message ${i+1}`;section.appendChild(h2);
+          const detailDiv=document.createElement('div');detailDiv.className='detail-view';
+          const imgLarge=document.createElement('img');imgLarge.src=`messages/msg${i+1}.jpg`;
+          detailDiv.appendChild(imgLarge);
+          section.appendChild(detailDiv);
+          const backBtn=document.createElement('button');backBtn.className='backBtn';backBtn.textContent='Back';backBtn.addEventListener('click',()=>squares[1].click());section.appendChild(backBtn);
+        });
+        gridMsg.appendChild(img);
+      }
+      section.appendChild(gridMsg);
+      const back=document.createElement('button');back.className='backBtn';back.textContent='Back';back.addEventListener('click',showMainGrid);section.appendChild(back);
+    }
+
+    if(targetId==='pictures'){
+      const heading=document.createElement('h2');heading.textContent='Memories';section.appendChild(heading);
+      const gridPics=document.createElement('div');gridPics.className='picture-grid';
+      for(let i=0;i<10;i++){
+        const img=document.createElement('img');
+        img.src=`images/pic${i+1}.jpg`; 
+        img.alt=`Picture ${i+1}`;
+        img.addEventListener('click',()=>{
+          section.innerHTML='';
+          const h2=document.createElement('h2');h2.textContent=`Picture ${i+1}`;section.appendChild(h2);
+          const detailDiv=document.createElement('div');detailDiv.className='detail-view';
+          const imgLarge=document.createElement('img');imgLarge.src=`images/pic${i+1}.jpg`;
+          detailDiv.appendChild(imgLarge);
+          section.appendChild(detailDiv);
+          const backBtn=document.createElement('button');backBtn.className='backBtn';backBtn.textContent='Back';backBtn.addEventListener('click',()=>squares[2].click());section.appendChild(backBtn);
+        });
+        gridPics.appendChild(img);
+      }
+      section.appendChild(gridPics);
+      const back=document.createElement('button');back.className='backBtn';back.textContent='Back';back.addEventListener('click',showMainGrid);section.appendChild(back);
+    }
+
+    if(targetId==='lordsword'){
+      const heading=document.createElement('h2');heading.textContent='Jesus loves you';section.appendChild(heading);
+      const verse1=document.createElement('div');verse1.className='verse-box';
+      verse1.innerHTML='💌 Proverbs 3:3-4 <br>“Let love and faithfulness never leave you; bind them around your neck, write them on the tablet of your heart. Then you will win favor and a good name in the sight of God and man.”';
+      section.appendChild(verse1);
+      const verse2=document.createElement('div');verse2.className='verse-box';
+      verse2.innerHTML='💌 Proverbs 31:29 <br>“Many women do noble things, but you surpass them all.”';
+      section.appendChild(verse2);
+      const back=document.createElement('button');back.className='backBtn';back.textContent='Back';back.addEventListener('click',showMainGrid);section.appendChild(back);
+    }
+
+    section.style.display='block';
+  });
+});
+</script>
+</body>
+</html>
